@@ -1,0 +1,50 @@
+#include <iostream>
+#include "mprpcapplication.h"
+#include "user.pb.h"
+
+int main(int argc, char **argv)
+{
+    // 整个程序启动以后,想使用mprpc框架来享受rpc服务调用,一定需要先调用框架的初始化函数(只初始化一次)
+    MprpcApplication::Init(argc, argv);
+
+    // 演示调用远程发布的rpc方法Login
+    fixbug::UserServicerRpc_Stub stub(new MprpcChannel());
+    // rpc方法的请求参数
+    fixbug::LoginRequest request;
+    request.set_name("zhang san");
+    request.set_pwd("123");
+    // rpc方法的响应
+    fixbug::LoginRespose response;
+
+    fixbug::RegisterRequest reuqest_;
+    reuqest_.set_id(1);
+    reuqest_.set_name("xiao ming");
+    reuqest_.set_pwd("321");
+    // rpc方法的响应
+    fixbug::RegisterRespose response_;
+
+    // 发起rpc方法的调用 同步的rpc调用过程 mprpcchannel:callmethod
+    stub.Login(nullptr, &request, &response, nullptr); // RpcChannel->RpcChannel::callMethod 集中来做所有rpc方法调用的参数序列化和网络发送
+    stub.Register(nullptr, &reuqest_, &response_, nullptr);
+    // 一次rpc调用完成, 读调用结果
+    if (0 == response.result().errcode())
+    {
+        std::cout << "rpc login response success:" << response.sucess() << std::endl;
+    }
+    else
+    {
+        std::cout << "rpc login response error" << response.result().errmsg() << std::endl;
+    }
+
+    
+    if (0 == response_.result().errcode())
+    {
+        std::cout << "rpc Register response success:" << response_.sucess() << std::endl;
+    }
+    else
+    {
+        std::cout << "rpc Register response error" << response_.result().errmsg() << std::endl;
+    }
+
+    return 0;
+}

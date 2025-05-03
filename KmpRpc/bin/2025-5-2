@@ -1,0 +1,9 @@
+22-58-15=>[INFO]service name:FriendServicerRpc
+22-58-15=>[INFO]method name :GetFriendsList
+22-58-15=>[INFO]RpcProvider start service at ip:192.168.217.148  port:8000
+23-23-10=>[INFO]service name:FriendServicerRpc
+23-23-10=>[INFO]method name :GetFriendsList
+23-23-10=>[INFO]RpcProvider start service at ip:192.168.217.148  port:8000
+23-56-11=>[INFO]service name:FriendServicerRpc
+23-56-11=>[INFO]method name :GetFriendsList
+23-56-11=>[INFO]RpcProvider start service at ip:192.168.217.148  port:8000
